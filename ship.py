@@ -8,7 +8,7 @@ class Ship:
         self.settings = ai_game.settings
         self.screen_rect = ai_game.screen.get_rect()
 
-        """Закгружаем изображение корабля"""
+        """Загружаем изображение корабля"""
         self.image = pygame.image.load('images/ship.bmp')
         self.rect = self.image.get_rect()
         """Каждый новый корабль появляется у нижнего края экрана"""
@@ -23,7 +23,7 @@ class Ship:
 
     def update(self):
         """Обновляет позицию корабля с учетом флагов"""
-        #бновляется атрибут x не rect
+        #Обновляется атрибут x не rect
 
         if self.moving_right and self.rect.right < self.screen_rect.right:
             self.x += self.settings.ship_speed
