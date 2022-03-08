@@ -1,4 +1,5 @@
 import sys
+from time import sleep
 
 import pygame
 
@@ -6,6 +7,7 @@ from settings import Settings
 from ship import Ship
 from bullet import Bullet
 from alien import Alien
+from game_stats import GameStats
 
 
 class AlienInvasion:
@@ -19,6 +21,9 @@ class AlienInvasion:
         self.settings.screen_width = self.screen.get_rect().width
         self.settings.screen_height = self.screen.get_rect().height
         pygame.display.set_caption('AlienInvasion')
+
+        #Создание экземпляра для хранения игровой статистики
+        self.stats = GameStats(self)
 
         self.ship = Ship(self)
         self.bullets = pygame.sprite.Group()
@@ -53,12 +58,13 @@ class AlienInvasion:
         """"Обработка коллизий снарядов с пришельцами"""
         #Удаление снарядов и пришельцев
         collisions = pygame.sprite.groupcollide(
-            self.bullets, self.aliens, False, True)
+            self.bullets, self.aliens, True, True)
 
         if not self.aliens:
             #Уничтожение существующих снарядов и создание нового флота
             self.bullets.empty()
             self._create_fleet()
+
 
     def _update_aliens(self):
         """Обновление позиции всех пришельцев во флоте"""
@@ -67,7 +73,22 @@ class AlienInvasion:
 
         #Проверка коллизий
         if pygame.sprite.spritecollideany(self.ship, self.aliens):
-            print("Ship Hit!!!")
+            self._ship_hit()
+
+    def _ship_hit(self):
+        """Обрабатывает столкновения корабля с пришельцем"""
+        self.stats.ships_left -= 1
+
+        #очистка списков пришельцев и снарядов
+        self.aliens.empty()
+        self.bullets.empty()
+
+        #Создание нового флота и размешения корабля в центре
+        self._create_fleet()
+        self.ship.center_ship()
+
+        #Пауза
+        sleep(0.5)
 
     def _check_events(self):
         """Обрабатывает нажатия клавиш и события мыши"""
