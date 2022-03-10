@@ -7,6 +7,10 @@ class GameStats():
 
         self.game_active = True
 
+        self.high_score = 0
+
     def reset_stats(self):
         """Инициализирует статистику"""
         self.ships_left = self.settings.ship_limit
+        self.score = 0
+        self.level = 1
