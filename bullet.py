@@ -3,6 +3,7 @@ from pygame.sprite import Sprite
 
 class Bullet(Sprite):
     """Класс для управления снарядами"""
+
     def __init__(self, ai_game):
         """Создает обьект снарядов в текущей позиции игрока"""
         super().__init__()
