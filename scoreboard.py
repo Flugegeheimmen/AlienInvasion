@@ -4,32 +4,32 @@ from pygame.sprite import Group
 from ship import Ship
 
 
-class Scoreboard:
-    def __init__(self, ai_game):
+class Scoreboard():
+    """Класс для вывода игровой информации"""
 
+    def __init__(self, ai_game):
+        """инициализирует атрибуты подсчета очков"""
         self.ai_game = ai_game
         self.screen = ai_game.screen
         self.screen_rect = self.screen.get_rect()
         self.settings = ai_game.settings
         self.stats = ai_game.stats
 
-        # Font settings for scoring information.
+        # Настройки шрифта для вывода счета
         self.text_color = (30, 30, 30)
         self.font = pygame.font.SysFont(None, 48)
 
-        # Prepare the initial score images.
+        # Подготовка исходного изображения
         self.prep_score()
         self.prep_high_score()
         self.prep_level()
         self.prep_ships()
 
     def prep_score(self):
-
+        """Преобразует текущий счет в графическое изображение"""
         rounded_score = round(self.stats.score, -1)
         score_str = "{:,}".format(rounded_score)
-        self.score_image = self.font.render(score_str, True,
-                                            self.text_color, self.settings.bg_color)
-
+        self.score_image = self.font.render(score_str, True,self.text_color, self.settings.bg_color)
 
         self.score_rect = self.score_image.get_rect()
         self.score_rect.right = self.screen_rect.right - 20

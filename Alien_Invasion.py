@@ -78,11 +78,10 @@ class AlienInvasion:
             self.sb.check_high_score()
 
         if not self.aliens:
-
+            #Уничтожение снарядов повышение скорости и создание нового флота
             self.bullets.empty()
             self._create_fleet()
             self.settings.increase_speed()
-
 
             self.stats.level += 1
             self.sb.prep_level()
@@ -146,7 +145,7 @@ class AlienInvasion:
         """начало игры"""
         button_clicked = self.play_button.rect.collidepoint(mouse_pos)
         if button_clicked and not self.stats.game_active:
-            # Сброс игры
+            # Сброс игровых настроек
             self.settings.initialize_dynamic_settings()
 
             # Сброс статистики
@@ -156,11 +155,11 @@ class AlienInvasion:
             self.sb.prep_level()
             self.sb.prep_ships()
 
-
+            #Очистка списка пришельцев
             self.aliens.empty()
             self.bullets.empty()
 
-
+            #Создание нового флота и размещение корабля в центре
             self._create_fleet()
             self.ship.center_ship()
 
@@ -241,7 +240,7 @@ class AlienInvasion:
         self.aliens.draw(self.screen)
 
         self.sb.show_score()
-
+        #Конпка Play отображается в том случае если игра неактивна
         if not self.stats.game_active:
             self.play_button.draw_button()
 
