@@ -110,7 +110,7 @@ class AlienInvasion:
 
     def _fire_bullet(self):
         """Создание нового снаряда и включение его в группу bullets"""
-        if len(self.bullets) < self.settings.bullets_allowed:
+        if len(self.bullets) < self.settings.bullet_allowed:
             new_bullet = Bullet(self)
             self.bullets.add(new_bullet)
 
